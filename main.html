@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            /* Change to anthracite color */
+            font-family: Arial, sans-serif;
+            color: white;
+            /* Change text color to white */
+            position: relative;
+            overflow: hidden;
+        }
+
+        #background-heart {
+            position: absolute;
+            width: 800px;
+            /* Set the fixed width */
+            height: 750px;
+            /* Set the fixed height */
+            top: 5%;
+            left: 7%;
+            transform: translate(-50%, -50%);
+            background-image: url('./assets/herz_w.png');
+            background-size: contain;
+            /* Scale the image to fit the container */
+            background-repeat: no-repeat;
+            opacity: 0.8; /* Adjust the opacity level */
+            background-position: center center;
+            /* Center the heart image */
+            animation: heartbeat 3s infinite;
+        }
+
+        #countdown {
+            font-size: 3rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        #text-container {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        #video-container {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: black;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* Keep original video resolution */
+            background-color: black;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* Media query for screens up to 768px wide (iPhone 14 and other mobile devices) */
+        @media (max-width: 768px) {
+            #background-heart {
+                width: 50%;
+                height: 50%;
+            }
+
+            #countdown {
+                font-size: 2rem;
+            }
+        }
+
+        /* Add your CSS styling here */
+    </style>
+</head>
+
+<body>
+    <div id="background-heart"></div>
+    <div id="countdown">00d 00h 00m 00s</div>
+    <div id="text-container">
+        Vinnie + Tessie
+    </div>
+    <div id="video-container">
+        <video autoplay controls>
+            <source src="./assets/bsp_1.mp4" type="video/mp4">
+            Vinnie_Tessie.
+        </video>
+    </div>
+    <script>
+        //const targetDate = new Date('2023-09-01T22:00:00'); // Target date and time
+        const targetDate = new Date('2023-08-14T15:43:00'); // Target date and time
+        const targetTime = targetDate.getTime();
+
+        const countdownElement = document.getElementById('countdown');
+        const heartElement = document.getElementById('background-heart');
+        const textElement = document.getElementById('text-container');
+        const interval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetTime - now;
+
+            if (distance <= 0) {
+                clearInterval(interval);
+
+                countdownElement.style.display = 'none'; // Hide the countdown div
+                heartElement.style.display = 'none'; // Hide the heart div
+                textElement.style.display = 'none'; // Hide the heart div
+
+                const videoContainer = document.getElementById('video-container');
+                videoContainer.style.display = 'block'; // Show the video container
+
+                const video = document.querySelector('video');
+                video.currentTime = 0; // Reset the video to start from 0 seconds
+                video.play();
+            } else {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                countdownElement.innerText = `${days} Tage ${hours} Stunden \n${minutes} Minuten ${seconds} Sekunden`;
+            }
+        }, 50);
+    </script>
+</body>
+
+</html>
