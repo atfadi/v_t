@@ -13,14 +13,14 @@
         Theresa & Vincent
     </div>
     <div id="video-container">
-        <video autoplay id="videoPlayer" muted>
+        <video autoplay id="videoPlayer" controls>
             <source src="./assets/bsp_1.mp4" type="video/mp4">
             Vinnie_Tessie.
         </video>
     </div>
     <script>
         //const targetDate = new Date('2023-09-01T22:00:00'); // Target date and time
-        const targetDate = new Date('2023-08-15T13:00:00'); // Target date and time
+        const targetDate = new Date('2023-08-14T13:00:00'); // Target date and time
         const targetTime = targetDate.getTime();
 
         const countdownElement = document.getElementById('countdown');
@@ -41,9 +41,6 @@
                 textElement.style.display = 'none'; // Hide the heart div
 
                 videoContainer.style.display = 'block'; // Show the video container
-
-                // Remove the 'muted' attribute to enable sound
-                videoPlayer.removeAttribute('muted');
 
                 // Reset the video to start from 0 seconds and play
                 video.currentTime = 0; // Reset the video to start from 0 seconds
